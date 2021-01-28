@@ -1,5 +1,5 @@
 const { UserSession } = require('@esri/arcgis-rest-auth');
-const { encrypt } = require('./utils');
+const { encrypt } = require('../shared/utils');
 const USERS = require('./users');
 const { success, error } = require('./response');
 require('cross-fetch/polyfill');

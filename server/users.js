@@ -1,7 +1,3 @@
-// const env = require('../config/_env') || 'dev';
-// const envPath = `./config/env.${env}.json`;
-// if (!process.env._HANDLER) require('dotenv-json')({ path: envPath });
-
 const { PASSWORD, PORTAL } = process.env;
 
 const USERS = {

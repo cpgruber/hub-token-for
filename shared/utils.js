@@ -1,7 +1,11 @@
 const { createCipheriv, createDecipheriv, randomBytes } = require('crypto');
+const algo = 'aes-256-ctr';
+
+const env = require('../config/_env') || 'dev';
+const envPath = `./config/env.${env}.json`;
+if (!process.env._HANDLER) require('dotenv-json')({ path: envPath });
 const { SECRET_KEY, IV_LENGTH: _ivLength } = process.env;
 const IV_LENGTH = parseInt(`${_ivLength}`, 10); // envvars are strings
-const algo = 'aes-256-ctr';
 
 const encrypt = str => {
   const iv = randomBytes(IV_LENGTH);
