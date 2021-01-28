@@ -1,0 +1,18 @@
+{
+  "name": "simple-hub-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@esri/arcgis-rest-auth": "^3.0.0",
+    "@esri/arcgis-rest-request": "^3.0.0",
+    "cross-fetch": "^3.0.6",
+    "dotenv-json": "^1.0.0",
+    "isomorphic-form-data": "^2.0.0"
+  }
+}
