@@ -13,13 +13,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^7.0.0",
-    "cross-fetch": "^3.0.6"
-  },
-  "devDependencies": {
     "@esri/arcgis-rest-auth": "^3.0.0",
     "@esri/arcgis-rest-request": "^3.0.0",
-    "dotenv-json": "^1.0.0",
+    "commander": "^7.0.0",
+    "cross-fetch": "^3.0.6",
     "isomorphic-form-data": "^2.0.0"
+  },
+  "devDependencies": {
+    "dotenv-json": "^1.0.0"
   }
 }

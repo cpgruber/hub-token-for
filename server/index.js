@@ -6,6 +6,10 @@ const { success, error } = require('./response');
 require('cross-fetch/polyfill');
 require('isomorphic-form-data');
 
+const env = 'dev';
+const envPath = `./config/env.${env}.json`;
+if (!process.env._HANDLER) require('dotenv-json')({ path: envPath });
+
 const { SECRET_KEY, IV_LENGTH: _ivLength } = process.env;
 const IV_LENGTH = parseInt(`${_ivLength}`, 10); // envvars are strings
 
