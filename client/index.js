@@ -9,7 +9,7 @@ const init = async () => {
   program
     .description('get AGO token for user')
     .option('-e --env <environment>', 'which environment (dev or qa)')
-    .option('-u --username <username>', 'which user (juliana_pa, paige_pa, chezelle_pa')
+    .option('-u --username <username>', 'which user (juliana_pa, paige_pa, chezelle_pa)')
     .option('-s --secret <secret key>', 'key used to decrypt token')
     .parse(process.argv);
 
