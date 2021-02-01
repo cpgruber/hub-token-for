@@ -19,6 +19,5 @@ module.exports = async (env, username, secret) => {
 
   const url = `${API_URL}?username=${username}`;
   const { token } = await fetch(url).then(res => res.json());
-
   return decrypt(secret, token);
 }
