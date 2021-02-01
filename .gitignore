@@ -2,3 +2,4 @@ node_modules
 .serverless
 config/env.*.json
 !config/env.dummy.json
+config/local.json

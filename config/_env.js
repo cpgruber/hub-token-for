@@ -1,3 +1,3 @@
-const env = 'dev';
+const env = 'qa';
 
 module.exports = env;
