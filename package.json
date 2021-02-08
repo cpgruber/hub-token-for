@@ -1,6 +1,6 @@
 {
   "name": "hub-token-pls",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate and copy hub user token to clipboard",
   "main": "./client/index.js",
   "bin": {
