@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.token4 = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
 const asn1 = exports;
@@ -26598,6 +26598,17 @@ function config (name) {
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],187:[function(require,module,exports){
+const token4 = require('./token-for');
+
+const url = new URL(window.location.href);
+const env = url.searchParams.has('env') ? url.searchParams.get('env').toLocaleLowerCase() : 'qa';
+const user = url.searchParams.get('user');
+const secret = window.localStorage.getItem('token4-secret');
+
+return token4(env, user, secret).then(token => {
+  window.localStorage.setItem('token', token);
+});
+},{"./token-for":188}],188:[function(require,module,exports){
 (function (Buffer){(function (){
 const { createDecipheriv } = require('crypto');
 const fetch = require('cross-fetch');
@@ -26613,20 +26624,17 @@ const decrypt = (secret, str) => {
   return decrypted.toString();
 }
 
-function token4(env, username, secret) {
+module.exports = async (env, username, secret) => {
   const API_URL = env.toLowerCase() === 'qa'
     ? 'https://l6ynfn9h4j.execute-api.us-east-2.amazonaws.com/qa/token'
     : 'https://0cejnizhhe.execute-api.us-east-2.amazonaws.com/dev/token';
 
   const url = `${API_URL}?username=${username}`;
-  return fetch(url)
-    .then(res => res.json())
-    .then(({ token }) => decrypt(secret, token));
+  const { token } = await fetch(url).then(res => res.json());
+  return decrypt(secret, token);
 }
-
-module.exports = token4;
 }).call(this)}).call(this,require("buffer").Buffer)
-},{"buffer":63,"cross-fetch":188,"crypto":71}],188:[function(require,module,exports){
+},{"buffer":63,"cross-fetch":189,"crypto":71}],189:[function(require,module,exports){
 var __self__ = (function (root) {
 function F() {
 this.fetch = false;
@@ -27174,5 +27182,4 @@ exports.Request = __self__.Request
 exports.Response = __self__.Response
 module.exports = exports
 
-},{}]},{},[187])(187)
-});
+},{}]},{},[187]);
