@@ -26613,7 +26613,7 @@ const decrypt = (secret, str) => {
   return decrypted.toString();
 }
 
-module.exports = async (env, username, secret) => {
+const token4 = async (env, username, secret) => {
   const API_URL = env.toLowerCase() === 'qa'
     ? 'https://l6ynfn9h4j.execute-api.us-east-2.amazonaws.com/qa/token'
     : 'https://0cejnizhhe.execute-api.us-east-2.amazonaws.com/dev/token';
@@ -26622,6 +26622,8 @@ module.exports = async (env, username, secret) => {
   const { token } = await fetch(url).then(res => res.json());
   return decrypt(secret, token);
 }
+
+module.exports = token4;
 }).call(this)}).call(this,require("buffer").Buffer)
 },{"buffer":63,"cross-fetch":188,"crypto":71}],188:[function(require,module,exports){
 var __self__ = (function (root) {
