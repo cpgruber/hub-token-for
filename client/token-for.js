@@ -12,14 +12,15 @@ const decrypt = (secret, str) => {
   return decrypted.toString();
 }
 
-const token4 = async (env, username, secret) => {
+function token4(env, username, secret) {
   const API_URL = env.toLowerCase() === 'qa'
     ? 'https://l6ynfn9h4j.execute-api.us-east-2.amazonaws.com/qa/token'
     : 'https://0cejnizhhe.execute-api.us-east-2.amazonaws.com/dev/token';
 
   const url = `${API_URL}?username=${username}`;
-  const { token } = await fetch(url).then(res => res.json());
-  return decrypt(secret, token);
+  return fetch(url)
+    .then(res => res.json())
+    .then(({ token }) => decrypt(secret, token));
 }
 
 module.exports = token4;
