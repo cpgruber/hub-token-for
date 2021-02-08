@@ -26598,15 +26598,17 @@ function config (name) {
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],187:[function(require,module,exports){
+'use strict';
+
 const token4 = require('./token-for');
 
 const url = new URL(window.location.href);
 const env = url.searchParams.has('env') ? url.searchParams.get('env').toLocaleLowerCase() : 'qa';
 const user = url.searchParams.get('user');
 const secret = window.localStorage.getItem('token4-secret');
-console.log('hey hi');
+alert('hey hi');
 return token4(env, user, secret).then(token => {
-  console.log('hello');
+  alert('hello');
   window.localStorage.setItem('token', token);
 });
 },{"./token-for":188}],188:[function(require,module,exports){
