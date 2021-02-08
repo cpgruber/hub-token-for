@@ -26624,6 +26624,10 @@ function token4(env, username, secret) {
     .then(({ token }) => decrypt(secret, token));
 }
 
+if (window) {
+  window.token4 = token4;
+}
+
 module.exports = token4;
 }).call(this)}).call(this,require("buffer").Buffer)
 },{"buffer":63,"cross-fetch":188,"crypto":71}],188:[function(require,module,exports){

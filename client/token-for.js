@@ -23,4 +23,8 @@ function token4(env, username, secret) {
     .then(({ token }) => decrypt(secret, token));
 }
 
+if (window) {
+  window.token4 = token4;
+}
+
 module.exports = token4;
