@@ -15,6 +15,16 @@ const USERS = {
     username: 'chezelle_pa',
     password: PASSWORD,
     portal: PORTAL
+  },
+  qa_pre_a_hub_admin: {
+    username: 'qa_pre_a_hub_admin',
+    password: PASSWORD,
+    portal: PORTAL
+  },
+  qa_pre_hub_admin: {
+    username: 'qa_pre_hub_admin',
+    password: PASSWORD,
+    portal: PORTAL
   }
 };
 
