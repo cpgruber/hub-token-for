@@ -8,7 +8,7 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bundle": "browserify client/browser | uglifyjs -cm > token4.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,8 @@
     "isomorphic-form-data": "^2.0.0"
   },
   "devDependencies": {
-    "dotenv-json": "^1.0.0"
+    "browserify": "^17.0.0",
+    "dotenv-json": "^1.0.0",
+    "uglify-js": "^3.12.7"
   }
 }
