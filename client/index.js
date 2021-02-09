@@ -1,4 +1,4 @@
-const tokenFor = require('./token-for');
+const { token4, doesTokenWork} = require('./token-for');
 const program = require('commander');
 const path = require('path');
 const fs = require('fs');
@@ -18,14 +18,22 @@ const init = async () => {
   const env = opts.env || hist.env || 'qa';
   const secret = opts.secret || hist.secret || '';
   const username = opts.username || hist.username || 'juliana_pa';
+  const tokenKey = [env, username].join('_');
+  const existingToken = hist[tokenKey];
+  if (existingToken && await doesTokenWork(env, existingToken)) {
+    logAndCopy(env, username, existingToken);
+    setConfig({ ...hist, env, username, secret });
+  } else {
+    const token = await token4(env, username, secret);
+    logAndCopy(env, username, token);
+    setConfig({ ...hist, env, username, secret, [tokenKey]: token });
+  }
+}
 
-  setConfig({ env, username, secret });
-
-  return tokenFor(env, username, secret).then(token => {
-    console.log(`[${env.toUpperCase()}] tokenFor: ${username}`);
-    console.log(token);
-    copy(token);
-  });
+function logAndCopy(env, username, token) {
+  console.log(`[${env.toUpperCase()}] token4: ${username}`);
+  console.log(token);
+  copy(token);
 }
 
 function getConfig() {

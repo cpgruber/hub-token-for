@@ -13,7 +13,9 @@ const decrypt = (secret, str) => {
 }
 
 const doesTokenWork = (env, token) => {
-  return fetch(`${env}ext.arcgis.com/sharing/rest?token=${token}&f=json`).then(res => {
+  return fetch(`https://${env}ext.arcgis.com/sharing/rest?token=${token}&f=json`)
+  .then(res => res.json())
+  .then(res => {
     return !res.error;
   });
 }
