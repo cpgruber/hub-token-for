@@ -7,7 +7,7 @@ const authenticate = async () => {
   const env = url.searchParams.has('env') ? url.searchParams.get('env').toLocaleLowerCase() : 'qa';
   const username = url.searchParams.get('username');
   const secret = window.localStorage.getItem('token4-secret');
-
+  
   let bearer;
   if (!!username) {
     const tokenKey = [env, username].join('_');
@@ -23,5 +23,4 @@ const authenticate = async () => {
   window.localStorage.setItem('bearer-token', bearer);
 }
 
-window.token4 = authenticate;
-// authenticate();
+authenticate();
