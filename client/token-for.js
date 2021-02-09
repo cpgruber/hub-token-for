@@ -12,7 +12,13 @@ const decrypt = (secret, str) => {
   return decrypted.toString();
 }
 
-module.exports = async (env, username, secret) => {
+const doesTokenWork = (env, token) => {
+  return fetch(`${env}ext.arcgis.com/sharing/rest?token=${token}&f=json`).then(res => {
+    return !res.error;
+  });
+}
+
+const token4 = async (env, username, secret) => {
   const API_URL = env.toLowerCase() === 'qa'
     ? 'https://l6ynfn9h4j.execute-api.us-east-2.amazonaws.com/qa/token'
     : 'https://0cejnizhhe.execute-api.us-east-2.amazonaws.com/dev/token';
@@ -21,3 +27,8 @@ module.exports = async (env, username, secret) => {
   const { token } = await fetch(url).then(res => res.json());
   return decrypt(secret, token);
 }
+
+module.exports = {
+  token4,
+  doesTokenWork
+};
