@@ -23,4 +23,5 @@ const authenticate = async () => {
   window.localStorage.setItem('bearer-token', bearer);
 }
 
-authenticate();
+window.token4 = authenticate;
+// authenticate();
