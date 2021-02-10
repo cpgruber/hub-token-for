@@ -7,7 +7,7 @@ provider:
   region: us-east-2
 
 custom:
-  defaultStage: qa
+  defaultStage: dev
 
 functions:
   app:

@@ -1,22 +1,27 @@
 const { createCipheriv, randomBytes } = require('crypto');
-const { UserSession } = require('@esri/arcgis-rest-auth');
 const USERS = require('./users');
 const { success, error } = require('./response');
+const fetch = require('node-fetch');
 
-require('cross-fetch/polyfill');
-require('isomorphic-form-data');
-
-const env = 'dev';
+const env = require('./_env');
 const envPath = `./config/env.${env}.json`;
 if (!process.env._HANDLER) require('dotenv-json')({ path: envPath });
 
 const { SECRET_KEY, IV_LENGTH: _ivLength } = process.env;
 const IV_LENGTH = parseInt(`${_ivLength}`, 10); // envvars are strings
 
-const authenticate = async username => {
-  const session = new UserSession(USERS[username] || {});
-  await session.getUser();
-  return session.token;
+const getToken = async user => {
+  const { username, password, portal } = USERS[user] || {};
+  const params = new URLSearchParams();
+  params.append('username', username);
+  params.append('password', password);
+  params.append('client', 'requestip');
+  const res = await fetch(`${portal}/generateToken?f=json`, {
+    method: 'POST',
+    body: params
+  }).then(res => res.json());
+  console.log('RES is', res);
+  return res.token;
 }
 
 const encrypt = str => {
@@ -32,7 +37,7 @@ module.exports = async (event, _, callback) => {
   let response;
   try {
     const { username } = event.queryStringParameters;
-    const token = await authenticate(username);
+    const token = await getToken(username);
     response = success(encrypt(token));
   } catch (err) {
     console.log(err);

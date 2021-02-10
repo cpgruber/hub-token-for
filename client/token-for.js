@@ -1,5 +1,5 @@
 const { createDecipheriv } = require('crypto');
-const fetch = require('cross-fetch');
+const fetch = require('node-fetch');
 
 const decrypt = (secret, str) => {
   const parts = str.split(':');
