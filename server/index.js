@@ -1,7 +1,10 @@
 const { createCipheriv, randomBytes } = require('crypto');
 const USERS = require('./users');
 const { success, error } = require('./response');
-const fetch = require('node-fetch');
+const { UserSession } = require('@esri/arcgis-rest-auth');
+
+require('cross-fetch/polyfill');
+require('isomorphic-form-data');
 
 const env = require('./_env');
 const envPath = `./config/env.${env}.json`;
@@ -10,18 +13,10 @@ if (!process.env._HANDLER) require('dotenv-json')({ path: envPath });
 const { SECRET_KEY, IV_LENGTH: _ivLength } = process.env;
 const IV_LENGTH = parseInt(`${_ivLength}`, 10); // envvars are strings
 
-const getToken = async user => {
-  const { username, password, portal } = USERS[user] || {};
-  const params = new URLSearchParams();
-  params.append('username', username);
-  params.append('password', password);
-  params.append('client', 'requestip');
-  const res = await fetch(`${portal}/generateToken?f=json`, {
-    method: 'POST',
-    body: params
-  }).then(res => res.json());
-  console.log('RES is', res);
-  return res.token;
+const getToken = async username => {
+  const session = new UserSession(USERS[username] || {});
+  await session.getUser();
+  return session.token;
 }
 
 const encrypt = str => {

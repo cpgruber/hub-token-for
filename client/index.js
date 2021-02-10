@@ -11,9 +11,13 @@ const init = async () => {
     .option('-e --env <environment>', 'which environment (dev or qa)')
     .option('-u --username <username>', 'which user (juliana_pa, paige_pa, chezelle_pa)')
     .option('-s --secret <secret key>', 'key used to decrypt token')
+    .option('-p --purge', 'purge saved tokens')
     .parse(process.argv);
 
   const opts = program.opts();
+
+  if (opts.purge) purge();
+
   const hist = getConfig();
   const env = opts.env || hist.env || 'qa';
   const secret = opts.secret || hist.secret || '';
@@ -47,6 +51,11 @@ function getConfig() {
 
 function setConfig(opts) {
   return fs.writeFileSync(CONFIG, JSON.stringify(opts));
+}
+
+function purge () {
+  const { env, username, secret } = getConfig();
+  setConfig({ env, username, secret });
 }
 
 function copy(str) {
